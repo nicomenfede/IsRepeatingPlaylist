@@ -17,13 +17,15 @@ public class Song
         songs.Add(this);
         var current = NextSong;
 
-        while (!current.NextSong.Equals(null) && !songs.Contains(current.NextSong))
+        while (!current.NextSong.Equals(null))
         {
-            songs.Add(current);
-            current = NextSong;
+            if (songs.Contains(current.NextSong))
+                return true;
+
+            songs.Add(current = current.NextSong);
         }
 
-        return songs.Contains(current.NextSong);
+        return false;
     }
 
     public static void Main(string[] args)
