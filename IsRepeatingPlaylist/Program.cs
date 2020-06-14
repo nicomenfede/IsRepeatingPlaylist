@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class Song
 {
@@ -12,7 +13,17 @@ public class Song
 
     public bool IsRepeatingPlaylist()
     {
-        throw new InvalidOperationException("Waiting to be implemented.");
+        List<Song> songs = new List<Song>();
+        songs.Add(this);
+        var current = NextSong;
+
+        while (!current.NextSong.Equals(null) && !songs.Contains(current.NextSong))
+        {
+            songs.Add(current);
+            current = NextSong;
+        }
+
+        return songs.Contains(current.NextSong);
     }
 
     public static void Main(string[] args)
